@@ -466,23 +466,31 @@ if st.button("Submit"):
 
         # Save chart to MongoDB
      
-        
-            # Serialize the chart to JSON
+                
+        # Serialize the chart to JSON
         chart_json = pio.to_json(fig)
+
+        # Save the data to the 'urdept' collection
         charts_collection = db['urdept']
         chart_data = {
-                'email': email,
-                'timestamp': datetime.utcnow(),
-                'talent_profile': talent_profile,
-                'scores': {
-                    'creativity_scores': creativity_scores,
-                    'leadership_scores': leadership_scores,
-                    'logic_scores': logic_scores,
-                    'additional_score': additional_scores,
-                },
-                'chart_json': chart_json,
-            }
-          
+            'email': email,
+            'timestamp': datetime.utcnow(),
+            'talent_profile': talent_profile,
+            'scores': {
+                'creativity_scores': creativity_scores,
+                'leadership_scores': leadership_scores,
+                'logic_scores': logic_scores,
+                'additional_score': additional_scores,
+            },
+            'chart_json': chart_json,
+        }
+
+        try:
+            # Directly insert the data into the 'urdept' collection
+            charts_collection.insert_one(chart_data)
+            st.success("Your results have been saved successfully.")
+        except Exception as e:
+            st.error(f"An error occurred while saving your results: {e}")
 
     # Optional: User Feedback Section
     st.subheader("আপনার প্রতিভা প্রোফাইল সম্পর্কে মতামত দিন:")
