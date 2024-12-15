@@ -118,7 +118,7 @@ st.markdown(css, unsafe_allow_html=True)
 
 # MongoDB connection
 client = MongoClient(MONGODB_URI)
-db = client['gvprod']  # Ensure 'gvprod' is your actual database name
+db = client['gvprod']  
 
 # Function to determine talent profile based on scores
 def determine_profile(creativity, leadership, logic):
