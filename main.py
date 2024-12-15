@@ -465,13 +465,12 @@ if st.button("Submit"):
         st.plotly_chart(fig, use_container_width=True)
 
         # Save chart to MongoDB
-        user_collection = db['users']
-        user = user_collection.find_one({'email': email})
-        if user:
+     
+        
             # Serialize the chart to JSON
-            chart_json = pio.to_json(fig)
-            charts_collection = db['urdept']
-            chart_data = {
+        chart_json = pio.to_json(fig)
+        charts_collection = db['urdept']
+        chart_data = {
                 'email': email,
                 'timestamp': datetime.utcnow(),
                 'talent_profile': talent_profile,
@@ -483,14 +482,7 @@ if st.button("Submit"):
                 },
                 'chart_json': chart_json,
             }
-            try:
-                # Use replace_one with upsert=True to overwrite existing data or insert new
-                charts_collection.replace_one({'email': email}, chart_data, upsert=True)
-                st.success("Your results have been saved.")
-            except Exception as e:
-                st.error(f"An error occurred while saving your results: {e}")
-        else:
-            st.warning("Email not found in the database.")
+          
 
     # Optional: User Feedback Section
     st.subheader("আপনার প্রতিভা প্রোফাইল সম্পর্কে মতামত দিন:")
