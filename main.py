@@ -11,7 +11,7 @@ import os
 
 # Load environment variables (ensure you have a .env file with MONGODB_URI)
 load_dotenv()
-MONGODB_URI = os.getenv('MONGODB_URI')  # Securely load your MongoDB URI from environment variables
+MONGODB_URI = st.secrets["MONGODB_URI"]  # Securely load your MongoDB URI from environment variables
 
 # Inject Custom CSS
 css = """
