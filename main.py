@@ -11,8 +11,9 @@ import os
 
 # Load environment variables (ensure you have a .env file with MONGODB_URI)
 load_dotenv()
-MONGODB_URI = st.secrets["MONGODB_URI"]  # Securely load your MongoDB URI from environment variables
+MONGODB_URI = st.secrets["mongodb"]["MONGODB_URI"]  # Securely load your MongoDB URI from environment variables
 
+MONGODB_DB = st.secrets["mongodb"]["MONGODB_DB"]
 # Inject Custom CSS
 css = """
 <style>
@@ -118,7 +119,7 @@ st.markdown(css, unsafe_allow_html=True)
 
 # MongoDB connection
 client = MongoClient(MONGODB_URI)
-db = client['gvprod']  
+db = client[MONGODB_DB]  
 
 # Function to determine talent profile based on scores
 def determine_profile(creativity, leadership, logic):
